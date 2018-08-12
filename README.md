@@ -1,2 +1,2 @@
 # restaurantic-registro-service
-App restaurante
+App restaurante resgistro service
