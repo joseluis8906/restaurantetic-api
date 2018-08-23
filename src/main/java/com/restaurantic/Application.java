@@ -1,12 +1,13 @@
-package com.restaurantic.registro;
+package com.restaurantic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RegistroApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RegistroApplication.class, args);
+
+		SpringApplication.run(Application.class, args);
 	}
 }
