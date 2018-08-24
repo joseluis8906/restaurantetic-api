@@ -28,7 +28,6 @@ public class ProductoController {
         if(nombre == null) {
             return this.productoService.findAll();
         }
-        System.out.println(nombre);
         return this.productoService.filterByNombre(nombre);
 
     }
