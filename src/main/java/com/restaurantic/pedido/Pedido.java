@@ -11,6 +11,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String codigo;
     private LocalDateTime fecha;
     private String mesa;
@@ -21,4 +22,72 @@ public class Pedido {
     private Double iva;
     private Double subtotal;
     private Double total;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(String mesa) {
+        this.mesa = mesa;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public Double getIva() {
+        return iva;
+    }
+
+    public void setIva(Double iva) {
+        this.iva = iva;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 }
