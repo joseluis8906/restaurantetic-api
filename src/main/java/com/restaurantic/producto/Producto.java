@@ -1,7 +1,6 @@
 package com.restaurantic.producto;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Producto {

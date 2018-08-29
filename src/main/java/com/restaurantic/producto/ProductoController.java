@@ -20,7 +20,7 @@ public class ProductoController {
 
     @GetMapping("/{codigo}")
     public Producto findByCodigo(@PathVariable String codigo){
-        return this.findByCodigo(codigo);
+        return this.productoService.findByCodigo(codigo);
     }
 
     @GetMapping
