@@ -1,5 +1,6 @@
 package com.restaurantic.producto;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +13,8 @@ import java.util.Optional;
 @RequestMapping("/api/v1/productos")
 public class ProductoController {
 
+    @Autowired
     private ProductoServiceImpl productoService;
-
-    public ProductoController(ProductoServiceImpl productoService) {
-        this.productoService = productoService;
-    }
 
     @GetMapping("/{codigo}")
     public Producto findByCodigo(@PathVariable String codigo){
