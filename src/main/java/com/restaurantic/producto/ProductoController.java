@@ -22,7 +22,7 @@ public class ProductoController {
     }
 
     @GetMapping
-    public List<Producto> find(@RequestParam(required = false) String nombre) {
+    public List<Producto> filter (@RequestParam(required = false) String nombre) {
         if(nombre == null) {
             return this.productoService.findAll();
         }
