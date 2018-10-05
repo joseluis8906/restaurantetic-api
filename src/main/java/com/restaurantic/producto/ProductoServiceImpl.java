@@ -1,16 +1,17 @@
 package com.restaurantic.producto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class ProductoServiceImpl implements ProductoService{
 
-    @Autowired
     private ProductoRepository productoRepository;
+
+    public ProductoServiceImpl (ProductoRepository productoRepository){
+        this.productoRepository = productoRepository;
+    }
 
     @Override
     public Producto findByCodigo(String codigo) {

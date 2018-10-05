@@ -2,7 +2,6 @@ package com.restaurantic.item;
 
 import com.restaurantic.pedido.Pedido;
 import com.restaurantic.pedido.PedidoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -14,11 +13,11 @@ import java.util.List;
 @RequestMapping("/api/v1/pedidos")
 public class ItemController {
 
-    @Autowired
     private PedidoServiceImpl pedidoService;
 
-    @Autowired
-    private ItemServiceImpl itemService;
+    public ItemController (PedidoServiceImpl pedidoService){
+        this.pedidoService = pedidoService;
+    }
 
     @GetMapping("/{codigo}/items")
     public List<Item> filterByPedido (@PathVariable String codigo) {
@@ -32,9 +31,19 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public Item findByPedidoAndNumero (@RequestParam(required = false) String pedido, @RequestParam(required = false) String numero) {
-        if(pedido != null && numero != null) {
-            return this.itemService.findByPedidoAndNumero(pedido, numero);
+    public Item findByPedidoAndNumero (@RequestParam(required = false) String codigo, @RequestParam(required = false) Integer numero) {
+        if(codigo != null && numero != null) {
+            Pedido pedido = this.pedidoService.findByCodigo(codigo);
+
+            if(pedido != null){
+                List<Item> items = pedido.getItems();
+
+                for(Item tmpItem: items){
+                    if(tmpItem.getNumero() == numero){
+                        return tmpItem;
+                    }
+                }
+            }
         }
 
         return null;

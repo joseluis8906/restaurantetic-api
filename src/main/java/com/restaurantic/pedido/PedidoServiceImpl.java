@@ -1,14 +1,18 @@
 package com.restaurantic.pedido;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class PedidoServiceImpl implements  PedidoService {
 
-    @Autowired
     private PedidoRepository pedidoRepository;
+
+    public PedidoServiceImpl (PedidoRepository pedidoRepository){
+        this.pedidoRepository = pedidoRepository;
+    }
 
     @Override
     public Pedido findByCodigo(String codigo) {

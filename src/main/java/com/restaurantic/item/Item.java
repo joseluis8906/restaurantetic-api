@@ -15,7 +15,7 @@ public class Item {
     private Integer numero;
     private Integer cantidad;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "producto_sid")
+    @JoinColumn(name = "producto_id")
     private Producto producto;
     private Double precioUnitario;
     private Double precioTotal;

@@ -1,6 +1,5 @@
 package com.restaurantic.pedido;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -12,8 +11,12 @@ import java.util.List;
 @Transactional
 @RequestMapping("/api/v1/pedidos")
 public class PedidoController {
-    @Autowired
-    PedidoServiceImpl pedidoService;
+
+    private PedidoServiceImpl pedidoService;
+
+    public PedidoController (PedidoServiceImpl pedidoService){
+        this.pedidoService = pedidoService;
+    }
 
     @GetMapping("/{codigo}")
     public Pedido findByCodigo (@PathVariable String codigo){
