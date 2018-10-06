@@ -1,9 +1,12 @@
 package com.restaurantic.pedido;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.restaurantic.item.Item;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -13,6 +16,7 @@ public class Pedido {
     private Long id;
     @Column(unique = true)
     private String codigo;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime fecha;
     private String mesa;
     private String cliente;

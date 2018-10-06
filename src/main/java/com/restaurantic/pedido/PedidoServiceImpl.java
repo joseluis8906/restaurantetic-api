@@ -2,6 +2,7 @@ package com.restaurantic.pedido;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class PedidoServiceImpl implements  PedidoService {
     }
 
     @Override
-    public List<Pedido> findByFecha(LocalDateTime fecha) {
-        return pedidoRepository.findByFecha(fecha);
+    public List<Pedido> findByFechaBetween(LocalDateTime fechaInicial, LocalDateTime fechaFinal) {
+        return pedidoRepository.findByFechaBetween(fechaInicial, fechaFinal);
     }
 
     @Override

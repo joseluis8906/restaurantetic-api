@@ -2,6 +2,8 @@ package com.restaurantic.item;
 
 import com.restaurantic.pedido.Pedido;
 import com.restaurantic.pedido.PedidoServiceImpl;
+import com.restaurantic.producto.Producto;
+import com.restaurantic.producto.ProductoServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -14,9 +16,11 @@ import java.util.List;
 public class ItemController {
 
     private PedidoServiceImpl pedidoService;
+    private ProductoServiceImpl productoService;
 
-    public ItemController (PedidoServiceImpl pedidoService){
+    public ItemController (PedidoServiceImpl pedidoService, ProductoServiceImpl productoService){
         this.pedidoService = pedidoService;
+        this.productoService = productoService;
     }
 
     @GetMapping("/{codigo}/items")
@@ -49,14 +53,15 @@ public class ItemController {
         return null;
     }
 
-    @PostMapping("/{codigo}/items")
-    public Item create (@PathVariable String codigo, @RequestBody Item item) {
-        Pedido tmp = this.pedidoService.findByCodigo(codigo);
+    @PostMapping("/{codigoPedido}/items/productos/{codigoProducto}")
+    public Item create (@PathVariable String codigoPedido, @PathVariable String codigoProducto, @RequestBody Item item) {
+        Pedido tmpPedido = this.pedidoService.findByCodigo(codigoPedido);
+        Producto tmpProducto = this.productoService.findByCodigo(codigoProducto);
 
-        if(tmp != null) {
-            tmp.getItems().add(item);
-            this.pedidoService.update(codigo, tmp);
-
+        if(tmpPedido != null && tmpProducto != null) {
+            item.setProducto(tmpProducto);
+            tmpPedido.getItems().add(item);
+            this.pedidoService.update(codigoPedido, tmpPedido);
             return item;
         }
 

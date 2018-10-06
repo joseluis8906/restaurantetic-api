@@ -1,8 +1,10 @@
 package com.restaurantic.pedido;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +26,13 @@ public class PedidoController {
     }
 
     @GetMapping
-    public List<Pedido> filter (@RequestParam(required = false) LocalDateTime fecha) {
+    public List<Pedido> filter (@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) {
         if(fecha != null){
-            return this.pedidoService.findByFecha(fecha);
+            LocalDateTime fechaInicial = fecha.withHour(0).withMinute(0).withSecond(0);
+            LocalDateTime fechaFinal = fecha.withHour(23).withMinute(59).withSecond(59);
+            return this.pedidoService.findByFechaBetween(fechaInicial, fechaFinal);
         }
-        return new ArrayList<>();
+        return null;
     }
 
     @PostMapping
