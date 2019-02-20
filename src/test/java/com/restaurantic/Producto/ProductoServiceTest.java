@@ -22,10 +22,10 @@ public class ProductoServiceTest {
 
     @TestConfiguration
     static class ProductoServiceImplTestContextConfiguration {
-        @Bean
+        /*@Bean
         public ProductoService productoService() {
             return new ProductoServiceImpl();
-        }
+        }*/
     }
 
     @Autowired
