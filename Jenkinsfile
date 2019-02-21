@@ -1,4 +1,4 @@
-pepeline {
+pipeline {
   agent {
     docker {
       image "joseluis8906/openjdk:8u181-jdk-stretch"
