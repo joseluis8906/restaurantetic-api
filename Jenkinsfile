@@ -11,12 +11,12 @@ pipeline {
         sh "cd /app"
         sh "gradle wrapper"
         sh "./gradlew bootJar"
+        sh "cp build/libs/restaurantic-api-service-0.0.1-SNAPSHOT.jar /app/app.jar"
       }
     }
     stage ("Run") {
       steps {
-        sh "ls /app/build/libs"
-        sh "java -jar /app/build/libs/restaurantic-api-service-0.0.1-SNAPSHOT.jar &"
+        sh "java -jar /app/app.jar &"
         input message: "Finished using the api service? (Click \"Proceed\" to continue)"
       }
     }
