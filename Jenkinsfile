@@ -15,6 +15,7 @@ pipeline {
     }
     stage ("Run") {
       steps {
+        sh "ls /app/build/libs"
         sh "java -jar /app/build/libs/restaurantic-api-service-0.0.1-SNAPSHOT.jar &"
         input message: "Finished using the api service? (Click \"Proceed\" to continue)"
       }
