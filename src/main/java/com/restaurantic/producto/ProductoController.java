@@ -36,12 +36,12 @@ public class ProductoController {
     }
 
     @PutMapping("/{codigo}")
-    public void update(String codigo, @RequestBody Producto producto){
+    public void update(@PathVariable String codigo, @RequestBody Producto producto){
         this.productoService.update(codigo, producto);
     }
     
     @DeleteMapping("/{codigo}")
-    public void delete(String codigo){
-        this.productoService.delete(codigo);
+    public Long delete(@PathVariable String codigo){
+        return this.productoService.delete(codigo);
     }
 }

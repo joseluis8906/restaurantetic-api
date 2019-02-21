@@ -46,10 +46,7 @@ public class ProductoServiceImpl implements ProductoService{
     }
 
     @Override
-    public void delete(String codigo){
-        Producto tmp = this.productoRepository.findByCodigo(codigo);
-        if(tmp != null) {
-            this.productoRepository.delete(tmp);
-        }
+    public Long delete(String codigo){
+        return this.productoRepository.deleteByCodigo(codigo);
     }
 }

@@ -8,5 +8,5 @@ public interface ProductoService {
     List<Producto> findAll();
     Producto create(Producto producto);
     void update(String codigo, Producto producto);
-    void delete(String codigo);
+    Long delete(String codigo);
 }
