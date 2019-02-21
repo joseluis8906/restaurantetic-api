@@ -1,22 +1,22 @@
 pepeline {
   agent {
     docker {
-      image "openjdk:8u181-jdk-stretch"
+      image "joseluis8906/openjdk:8u181-jdk-stretch"
       args "--name restaurantetic-api-service --network restaurantetic -p 9999:8080"
     }
   }
   stages {
     stage ("Build") {
       steps {
-        sh "cd /tmp/"
+        sh "cd /app"
+        sh "gradle wrapper"
+        sh "./gradlew bootJar"
       }
     }
     stage ("Run") {
       steps {
-        sh "npm install -g @angular/cli@6.1.3"
-        sh "npm run build:ssr"
-        sh "npm run serve:ssr&"
-        input message: "Finished using the web site? (Click \"Proceed\" to continue)"
+        sh "java -jar build/libs/restaurantetic-api-service-0.0.1-SNAPSHOT.jar &"
+        input message: "Finished using the api service? (Click \"Proceed\" to continue)"
       }
     }
   }
