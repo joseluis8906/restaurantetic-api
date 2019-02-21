@@ -35,12 +35,12 @@ public class ProductoController {
         return this.productoService.create(producto);
     }
 
-    @PutMapping
-    public void update(String codigo, Producto producto){
+    @PutMapping("/{codigo}")
+    public void update(String codigo, @RequestBody Producto producto){
         this.productoService.update(codigo, producto);
     }
-
-    @DeleteMapping
+    
+    @DeleteMapping("/{codigo}")
     public void delete(String codigo){
         this.productoService.delete(codigo);
     }
