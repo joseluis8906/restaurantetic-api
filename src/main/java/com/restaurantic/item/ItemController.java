@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Transactional
 @RequestMapping("/api/v1/pedidos")
