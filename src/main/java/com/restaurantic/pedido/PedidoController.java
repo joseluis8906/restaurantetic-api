@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Transactional
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/v1/pedidos")
 public class PedidoController {
 
