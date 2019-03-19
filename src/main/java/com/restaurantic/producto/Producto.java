@@ -10,6 +10,7 @@ public class Producto {
     @Column(unique = true)
     private String codigo;
     private String nombre;
+    private String imagen;
     private String descripcion;
     private String ingredientes;
     private Double precio;
@@ -29,11 +30,19 @@ public class Producto {
     public String getNombre() {
         return nombre;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+    
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }

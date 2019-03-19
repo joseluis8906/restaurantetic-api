@@ -38,6 +38,7 @@ public class ProductoServiceImpl implements ProductoService{
         Producto tmp = this.productoRepository.findByCodigo(codigo);
         if (tmp != null){
             tmp.setNombre(producto.getNombre());
+            tmp.setImagen(producto.getImagen());
             tmp.setDescripcion(producto.getDescripcion());
             tmp.setIngredientes(producto.getIngredientes());
             tmp.setPrecio(producto.getPrecio());

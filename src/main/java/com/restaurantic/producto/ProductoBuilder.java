@@ -17,6 +17,11 @@ public class ProductoBuilder {
         return this;
     }
 
+    public ProductoBuilder withImagen(String imagen){
+        producto.setImagen(imagen);
+        return this;
+    }
+
     public ProductoBuilder withDescripcion(String descripcion){
         producto.setDescripcion(descripcion);
         return this;
