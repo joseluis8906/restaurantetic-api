@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @Transactional
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/v1/pedidos")
 public class ItemController {
 
