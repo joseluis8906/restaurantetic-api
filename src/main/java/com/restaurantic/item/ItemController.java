@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @Transactional
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/pedidos")
 public class ItemController {
 

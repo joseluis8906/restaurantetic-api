@@ -7,6 +7,7 @@ import java.util.List;
 
 @RestController
 @Transactional
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/productos")
 public class ProductoController {
 
