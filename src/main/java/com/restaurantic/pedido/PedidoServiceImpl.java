@@ -19,6 +19,11 @@ public class PedidoServiceImpl implements  PedidoService {
     public Pedido findByCodigo(String codigo) {
         return pedidoRepository.findByCodigo(codigo);
     }
+    
+    @Override
+    public List<Pedido> findByPago(Boolean pago) {
+        return pedidoRepository.findByPago(pago);
+    }
 
     @Override
     public List<Pedido> findByFechaBetween(LocalDateTime fechaInicial, LocalDateTime fechaFinal) {

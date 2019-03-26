@@ -10,4 +10,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     Pedido findByCodigo(String codigo);
     List<Pedido> findByFechaBetween(LocalDateTime fechaInicial, LocalDateTime fechaFinal);
     List<Pedido> findAll();
+    List<Pedido> findByPago(Boolean pago);
 }

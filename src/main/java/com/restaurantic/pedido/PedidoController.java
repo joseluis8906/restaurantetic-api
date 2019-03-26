@@ -26,12 +26,17 @@ public class PedidoController {
     }
 
     @GetMapping
-    public List<Pedido> filter (@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) {
+    public List<Pedido> filter (@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @RequestParam(required = false) Boolean pago) {
         if(fecha != null){
             LocalDateTime fechaInicial = fecha.withHour(0).withMinute(0).withSecond(0);
             LocalDateTime fechaFinal = fecha.withHour(23).withMinute(59).withSecond(59);
             return this.pedidoService.findByFechaBetween(fechaInicial, fechaFinal);
         }
+
+        else if(pago != null) {
+          return this.pedidoService.findByPago(pago);
+        }
+
         return null;
     }
 

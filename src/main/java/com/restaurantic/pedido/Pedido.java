@@ -19,13 +19,13 @@ public class Pedido {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime fecha;
     private String mesa;
-    private String cliente;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_id")
     private List<Item> items;
     private Double iva;
     private Double subtotal;
     private Double total;
+    private Boolean pago;
 
     public Long getId() {
         return id;
