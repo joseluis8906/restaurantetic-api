@@ -40,11 +40,11 @@ public class PedidoServiceImpl implements  PedidoService {
         Pedido tmp = this.pedidoRepository.findByCodigo(codigo);
         if (tmp != null){
             tmp.setFecha(pedido.getFecha());
-            tmp.setCliente(pedido.getCliente());
             tmp.setMesa(pedido.getMesa());
             tmp.setIva(pedido.getIva());
             tmp.setSubtotal(pedido.getSubtotal());
-            tmp.setTotal(pedido.getSubtotal());
+            tmp.setTotal(pedido.getTotal());
+            tmp.setPago(pedido.getPago());
             this.pedidoRepository.save(tmp);
         }
     }

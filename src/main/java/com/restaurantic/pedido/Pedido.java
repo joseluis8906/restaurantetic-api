@@ -55,14 +55,6 @@ public class Pedido {
         this.mesa = mesa;
     }
 
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
     public List<Item> getItems() {
         return items;
     }
@@ -93,5 +85,13 @@ public class Pedido {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public Boolean getPago() {
+        return pago;
+    }
+
+    public void setPago(Boolean pago) {
+        this.pago = pago;
     }
 }
