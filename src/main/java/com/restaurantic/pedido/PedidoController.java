@@ -23,7 +23,7 @@ public class PedidoController {
 
     public PedidoController (PedidoServiceImpl pedidoService){
         this.pedidoService = pedidoService;
-        this.fechaInicio = "2019-04-06";
+        this.fechaInicio = LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toString().split("T")[0];
         this.contador = new AtomicInteger(0);
     }
 
