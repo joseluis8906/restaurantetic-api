@@ -2,12 +2,15 @@ package com.restaurantic.pedido;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @Transactional
@@ -15,9 +18,13 @@ import java.util.List;
 public class PedidoController {
 
     private PedidoServiceImpl pedidoService;
+    private String fechaInicio;
+    private AtomicInteger contador;
 
     public PedidoController (PedidoServiceImpl pedidoService){
         this.pedidoService = pedidoService;
+        this.fechaInicio = "2019-04-06";
+        this.contador = new AtomicInteger(0);
     }
 
     @GetMapping("/{codigo}")
@@ -38,6 +45,17 @@ public class PedidoController {
         }
 
         return null;
+    }
+
+    @GetMapping("/codigo/next")
+    public String getCode() {
+        String fechaHoy = LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toString().split("T")[0];
+        if (!this.fechaInicio.equals(fechaHoy)) {
+            this.contador.set(0);
+            this.fechaInicio = fechaHoy;
+        }
+
+        return "PED-" + String.format("%04d", this.contador.incrementAndGet());
     }
 
     @PostMapping
