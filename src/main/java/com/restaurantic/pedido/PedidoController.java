@@ -68,8 +68,8 @@ public class PedidoController {
         this.pedidoService.update(codigo, pedido);
     }
 
-    @DeleteMapping
-    public void delete (String codigo) {
+    @DeleteMapping("/{codigo}")
+    public void delete (@PathVariable String codigo) {
         this.pedidoService.delete(codigo);
     }
 }

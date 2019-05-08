@@ -15,10 +15,12 @@ import java.util.List;
 @RequestMapping("/api/v1/pedidos")
 public class ItemController {
 
+    private ItemServiceImpl itemService;
     private PedidoServiceImpl pedidoService;
     private ProductoServiceImpl productoService;
 
-    public ItemController (PedidoServiceImpl pedidoService, ProductoServiceImpl productoService){
+    public ItemController (ItemServiceImpl itemService, PedidoServiceImpl pedidoService, ProductoServiceImpl productoService){
+        this.itemService = itemService;
         this.pedidoService = pedidoService;
         this.productoService = productoService;
     }
@@ -54,15 +56,18 @@ public class ItemController {
     }
 
     @PostMapping("/{codigoPedido}/items/productos/{codigoProducto}")
-    public Item create (@PathVariable String codigoPedido, @PathVariable String codigoProducto, @RequestBody Item item) {
+    public Pedido create (@PathVariable String codigoPedido, @PathVariable String codigoProducto, @RequestBody Item item) {
+
         Pedido tmpPedido = this.pedidoService.findByCodigo(codigoPedido);
         Producto tmpProducto = this.productoService.findByCodigo(codigoProducto);
 
         if(tmpPedido != null && tmpProducto != null) {
             item.setProducto(tmpProducto);
+            item.setNumero(tmpPedido.getItems().size() + 1);
+            tmpPedido.setTotal(tmpPedido.getTotal() + item.getPrecio());    
             tmpPedido.getItems().add(item);
-            this.pedidoService.update(codigoPedido, tmpPedido);
-            return item;
+            this.pedidoService.create(tmpPedido);
+            return tmpPedido;
         }
 
         return null;
@@ -70,20 +75,30 @@ public class ItemController {
 
 
     @DeleteMapping("/{codigo}/items/{numero}")
-    public void delete (@PathVariable String codigo, @PathVariable String numero) {
-        Pedido tmp = this.pedidoService.findByCodigo(codigo);
+    public Pedido delete (@PathVariable String codigo, @PathVariable Integer numero) {
+        Pedido tmpPedido = this.pedidoService.findByCodigo(codigo);
 
-        if( tmp != null ) {
-            List<Item> items = tmp.getItems();
+        if( tmpPedido != null ) {
+            List<Item> items = tmpPedido.getItems();
 
             for(int i = 0; i < items.size(); i++ ){
-                if (items.get(i).getNumero().equals(numero)){
-                    tmp.getItems().remove(i);
-                    this.pedidoService.update(codigo, tmp);
-                    break;
+                Item item = items.get(i);
+                if (item.getNumero() == numero){
+                    tmpPedido.getItems().remove(item);
+                    tmpPedido.setTotal(tmpPedido.getTotal() - item.getPrecio());
+                    this.pedidoService.create(tmpPedido);
+                    tmpPedido = this.pedidoService.findByCodigo(codigo);
+                    List<Item> newItems = tmpPedido.getItems();
+                    int length = newItems.size();
+                    for (int j = numero - 1; j < length; j++) {
+                        newItems.get(j).setNumero(j + 1);
+                    }
+                    return tmpPedido;
                 }
             }
         }
+
+        return null;
     }
 
 }

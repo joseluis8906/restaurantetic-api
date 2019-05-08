@@ -19,11 +19,9 @@ public class Pedido {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime fecha;
     private String mesa;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
     private List<Item> items;
-    private Double iva;
-    private Double subtotal;
     private Double total;
     private Boolean pago;
 
@@ -61,22 +59,6 @@ public class Pedido {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public Double getIva() {
-        return iva;
-    }
-
-    public void setIva(Double iva) {
-        this.iva = iva;
-    }
-
-    public Double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
     }
 
     public Double getTotal() {
