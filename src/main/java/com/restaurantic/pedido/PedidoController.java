@@ -63,8 +63,8 @@ public class PedidoController {
         return this.pedidoService.create(pedido);
     }
 
-    @PutMapping
-    public void update (String codigo, @RequestBody Pedido pedido){
+    @PutMapping("/{codigo}")
+    public void update (@PathVariable String codigo, @RequestBody Pedido pedido){
         this.pedidoService.update(codigo, pedido);
     }
 

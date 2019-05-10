@@ -16,6 +16,10 @@ public class ItemServiceImpl implements ItemService {
         return this.itemRepository.save(item);
     }
 
+    @Override public  void update(Item item) {
+      this.itemRepository.save(item);
+    }
+
     @Override
     public void delete(Item item) {
         this.itemRepository.delete(item);

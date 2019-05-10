@@ -64,13 +64,29 @@ public class ItemController {
         if(tmpPedido != null && tmpProducto != null) {
             item.setProducto(tmpProducto);
             item.setNumero(tmpPedido.getItems().size() + 1);
-            tmpPedido.setTotal(tmpPedido.getTotal() + item.getPrecio());    
+            tmpPedido.setTotal(tmpPedido.getTotal() + item.getPrecio());
             tmpPedido.getItems().add(item);
             this.pedidoService.create(tmpPedido);
             return tmpPedido;
         }
 
         return null;
+    }
+
+
+    @PutMapping("/{codigoPedido}/items/{numero}")
+    public void update (@PathVariable String codigoPedido, @PathVariable Integer numero, @RequestBody Item item) {
+        Pedido tmpPedido = this.pedidoService.findByCodigo(codigoPedido);
+        if( tmpPedido != null ) {
+            List<Item> items = tmpPedido.getItems();
+
+            for(Item item_:  items){
+                if (item_.getNumero() == numero) {
+                  item_.setEstado(item.getEstado());
+                  itemService.update(item);
+                }
+            }
+        }
     }
 
 

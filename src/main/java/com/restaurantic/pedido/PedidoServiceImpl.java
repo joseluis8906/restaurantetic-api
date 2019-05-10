@@ -39,8 +39,6 @@ public class PedidoServiceImpl implements  PedidoService {
     public void update(String codigo, Pedido pedido) {
         Pedido tmp = this.pedidoRepository.findByCodigo(codigo);
         if (tmp != null){
-            tmp.setFecha(pedido.getFecha());
-            tmp.setMesa(pedido.getMesa());
             tmp.setTotal(pedido.getTotal());
             tmp.setPago(pedido.getPago());
             this.pedidoRepository.save(tmp);

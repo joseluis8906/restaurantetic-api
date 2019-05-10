@@ -17,7 +17,9 @@ public class Item {
     @OneToOne
     @JoinColumn(name = "producto_id")
     private Producto producto;
+    private String sinIngredientes;
     private Double precio;
+    private String estado;
 
     public Long getId() {
         return id;
@@ -39,11 +41,27 @@ public class Item {
         this.producto = producto;
     }
 
+    public void setSinIngredientes(String sinIngredientes) {
+        this.sinIngredientes = sinIngredientes;
+    }
+
+    public String getSinIngredientes() {
+        return this.sinIngredientes;
+    }
+
     public Double getPrecio() {
         return precio;
     }
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getEstado() {
+        return this.estado;
     }
 }
