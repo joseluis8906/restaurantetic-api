@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image "joseluis8906/openjdk:8u181-jdk-stretch"
-      args "--name restaurantetic-api-service --network restaurantetic -p 9999:8080"
+      args "--name restaurantetic-api --network restaurantetic -p 9999:8080"
     }
   }
   stages {
