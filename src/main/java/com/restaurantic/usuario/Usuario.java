@@ -12,6 +12,9 @@ public class Usuario {
     private String username;
     private String password;
     private String roles;
+    private String nombre;
+    private String telefono;
+    private String email;
 
     public Long getId() {
         return id;
@@ -39,5 +42,29 @@ public class Usuario {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTelefono() {
+        return this.telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
