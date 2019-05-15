@@ -53,13 +53,11 @@ public class ItemController {
                 }
             }
         }
-
         return null;
     }
 
     @PostMapping("/{codigoPedido}/{fecha}/items/productos/{codigoProducto}")
     public Pedido create (@PathVariable String codigoPedido, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @PathVariable String codigoProducto, @RequestBody Item item) {
-
         Pedido tmpPedido = this.pedidoService.findByCodigoAndFecha(codigoPedido, fecha);
         Producto tmpProducto = this.productoService.findByCodigo(codigoProducto);
 
@@ -68,7 +66,7 @@ public class ItemController {
             item.setNumero(tmpPedido.getItems().size() + 1);
             tmpPedido.setTotal(tmpPedido.getTotal() + item.getPrecio());
             tmpPedido.getItems().add(item);
-            this.pedidoService.create(tmpPedido);
+            tmpPedido = this.pedidoService.create(tmpPedido);
             return tmpPedido;
         }
 
@@ -115,8 +113,6 @@ public class ItemController {
                 }
             }
         }
-
         return null;
     }
-
 }

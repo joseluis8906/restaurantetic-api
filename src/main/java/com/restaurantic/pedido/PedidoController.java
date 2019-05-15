@@ -68,7 +68,7 @@ public class PedidoController {
         this.pedidoService.update(codigo, fecha, pedido);
     }
 
-    @DeleteMapping("/{codigo}")
+    @DeleteMapping("/{codigo}/{fecha}")
     public void delete (@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) {
         this.pedidoService.delete(codigo, fecha);
     }
