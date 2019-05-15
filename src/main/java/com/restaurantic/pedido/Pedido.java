@@ -10,11 +10,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints = {
+   @UniqueConstraint(columnNames = {"codigo", "fecha"})
+}) 
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
     private String codigo;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime fecha;

@@ -27,9 +27,9 @@ public class PedidoController {
         this.contador = new AtomicInteger(0);
     }
 
-    @GetMapping("/{codigo}")
-    public Pedido findByCodigo (@PathVariable String codigo){
-        return this.pedidoService.findByCodigo(codigo);
+    @GetMapping("/{codigo}/{fecha}")
+    public Pedido findByCodigo (@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha){
+        return this.pedidoService.findByCodigoAndFecha(codigo, fecha);
     }
 
     @GetMapping
@@ -63,13 +63,13 @@ public class PedidoController {
         return this.pedidoService.create(pedido);
     }
 
-    @PutMapping("/{codigo}")
-    public void update (@PathVariable String codigo, @RequestBody Pedido pedido){
-        this.pedidoService.update(codigo, pedido);
+    @PutMapping("/{codigo}/{fecha}")
+    public void update (@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @RequestBody Pedido pedido){
+        this.pedidoService.update(codigo, fecha, pedido);
     }
 
     @DeleteMapping("/{codigo}")
-    public void delete (@PathVariable String codigo) {
-        this.pedidoService.delete(codigo);
+    public void delete (@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) {
+        this.pedidoService.delete(codigo, fecha);
     }
 }

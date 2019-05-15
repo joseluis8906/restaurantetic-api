@@ -5,7 +5,9 @@ import com.restaurantic.pedido.PedidoServiceImpl;
 import com.restaurantic.producto.Producto;
 import com.restaurantic.producto.ProductoServiceImpl;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +27,9 @@ public class ItemController {
         this.productoService = productoService;
     }
 
-    @GetMapping("/{codigo}/items")
-    public List<Item> filterByPedido (@PathVariable String codigo) {
-        Pedido tmp = this.pedidoService.findByCodigo(codigo);
+    @GetMapping("/{codigo}/{fecha}/items")
+    public List<Item> filterByPedido (@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha) {
+        Pedido tmp = this.pedidoService.findByCodigoAndFecha(codigo, fecha);
 
         if(tmp != null) {
             return tmp.getItems();
@@ -37,9 +39,9 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public Item findByPedidoAndNumero (@RequestParam(required = false) String codigo, @RequestParam(required = false) Integer numero) {
+    public Item findByPedidoAndNumero (@RequestParam(required = false) String codigo, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @RequestParam(required = false) Integer numero) {
         if(codigo != null && numero != null) {
-            Pedido pedido = this.pedidoService.findByCodigo(codigo);
+            Pedido pedido = this.pedidoService.findByCodigoAndFecha(codigo, fecha);
 
             if(pedido != null){
                 List<Item> items = pedido.getItems();
@@ -55,10 +57,10 @@ public class ItemController {
         return null;
     }
 
-    @PostMapping("/{codigoPedido}/items/productos/{codigoProducto}")
-    public Pedido create (@PathVariable String codigoPedido, @PathVariable String codigoProducto, @RequestBody Item item) {
+    @PostMapping("/{codigoPedido}/{fecha}/items/productos/{codigoProducto}")
+    public Pedido create (@PathVariable String codigoPedido, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @PathVariable String codigoProducto, @RequestBody Item item) {
 
-        Pedido tmpPedido = this.pedidoService.findByCodigo(codigoPedido);
+        Pedido tmpPedido = this.pedidoService.findByCodigoAndFecha(codigoPedido, fecha);
         Producto tmpProducto = this.productoService.findByCodigo(codigoProducto);
 
         if(tmpPedido != null && tmpProducto != null) {
@@ -74,9 +76,9 @@ public class ItemController {
     }
 
 
-    @PutMapping("/{codigoPedido}/items/{numero}")
-    public void update (@PathVariable String codigoPedido, @PathVariable Integer numero, @RequestBody Item item) {
-        Pedido tmpPedido = this.pedidoService.findByCodigo(codigoPedido);
+    @PutMapping("/{codigoPedido}/{fecha}/items/{numero}")
+    public void update (@PathVariable String codigoPedido, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @PathVariable Integer numero, @RequestBody Item item) {
+        Pedido tmpPedido = this.pedidoService.findByCodigoAndFecha(codigoPedido, fecha);
         if( tmpPedido != null ) {
             List<Item> items = tmpPedido.getItems();
 
@@ -90,9 +92,9 @@ public class ItemController {
     }
 
 
-    @DeleteMapping("/{codigo}/items/{numero}")
-    public Pedido delete (@PathVariable String codigo, @PathVariable Integer numero) {
-        Pedido tmpPedido = this.pedidoService.findByCodigo(codigo);
+    @DeleteMapping("/{codigo}/{fecha}/items/{numero}")
+    public Pedido delete (@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, @PathVariable Integer numero) {
+        Pedido tmpPedido = this.pedidoService.findByCodigoAndFecha(codigo, fecha);
 
         if( tmpPedido != null ) {
             List<Item> items = tmpPedido.getItems();
@@ -103,7 +105,7 @@ public class ItemController {
                     tmpPedido.getItems().remove(item);
                     tmpPedido.setTotal(tmpPedido.getTotal() - item.getPrecio());
                     this.pedidoService.create(tmpPedido);
-                    tmpPedido = this.pedidoService.findByCodigo(codigo);
+                    tmpPedido = this.pedidoService.findByCodigoAndFecha(codigo, fecha);
                     List<Item> newItems = tmpPedido.getItems();
                     int length = newItems.size();
                     for (int j = numero - 1; j < length; j++) {

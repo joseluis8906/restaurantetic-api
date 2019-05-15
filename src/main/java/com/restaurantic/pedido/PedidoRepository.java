@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-    Pedido findByCodigo(String codigo);
+    Pedido findByCodigoAndFecha(String codigo, LocalDateTime fecha);
     List<Pedido> findByFechaBetween(LocalDateTime fechaInicial, LocalDateTime fechaFinal);
     List<Pedido> findAll();
     List<Pedido> findByPago(Boolean pago);

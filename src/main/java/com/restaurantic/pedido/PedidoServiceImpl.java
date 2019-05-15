@@ -16,10 +16,10 @@ public class PedidoServiceImpl implements  PedidoService {
     }
 
     @Override
-    public Pedido findByCodigo(String codigo) {
-        return pedidoRepository.findByCodigo(codigo);
+    public Pedido findByCodigoAndFecha(String codigo, LocalDateTime fecha) {
+        return pedidoRepository.findByCodigoAndFecha(codigo, fecha);
     }
-    
+
     @Override
     public List<Pedido> findByPago(Boolean pago) {
         return pedidoRepository.findByPago(pago);
@@ -36,8 +36,8 @@ public class PedidoServiceImpl implements  PedidoService {
     }
 
     @Override
-    public void update(String codigo, Pedido pedido) {
-        Pedido tmp = this.pedidoRepository.findByCodigo(codigo);
+    public void update(String codigo, LocalDateTime fecha, Pedido pedido) {
+        Pedido tmp = this.pedidoRepository.findByCodigoAndFecha(codigo, fecha);
         if (tmp != null){
             tmp.setTotal(pedido.getTotal());
             tmp.setPago(pedido.getPago());
@@ -46,8 +46,8 @@ public class PedidoServiceImpl implements  PedidoService {
     }
 
     @Override
-    public void delete(String codigo) {
-        Pedido tmp = this.pedidoRepository.findByCodigo(codigo);
+    public void delete(String codigo, LocalDateTime fecha) {
+        Pedido tmp = this.pedidoRepository.findByCodigoAndFecha(codigo, fecha);
         if (tmp != null) {
             this.pedidoRepository.delete(tmp);
         }
