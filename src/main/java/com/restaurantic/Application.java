@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SuppressWarnings("deprecation")
 @SpringBootApplication
 public class Application {
 
@@ -16,7 +15,6 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-@SuppressWarnings("deprecation")
 @Bean
   public WebMvcConfigurer corsConfigurer() {
      return new WebMvcConfigurerAdapter() {
